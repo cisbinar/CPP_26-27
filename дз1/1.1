@@ -1,0 +1,56 @@
+#include <iostream>
+#include <iomanip>
+
+double average(const int* tp, int n) {
+  int sum = 0;
+  for (int i = 0; i < n; ++i) {
+    sum += tp[i];
+  }
+  return static_cast<double>(sum) / n;
+}
+
+void find(const int* tp, int n, int& mn, int& mx) {
+  mn = tp[0];
+  mx = tp[0];
+  for (int i = 1; i < n; ++i) {
+    if (tp[i] < mn) {
+      mn = tp[i];
+    }
+    if (tp[i] > mx) {
+      mx = tp[i];
+    }
+  }
+}
+
+int countfr(const int* tp, int n) {
+  int count = 0;
+  for (int i = 0; i < n; ++i) {
+    if (tp[i] < 0) {
+      ++count;
+    }
+  }
+  return count;
+}
+
+int main() {
+  int n;
+  std::cin >> n;
+
+  int* tp = new int[n];
+  for (int i = 0; i < n; ++i) {
+    std::cin >> tp[i];
+  }
+
+  double avg = average(tp, n);
+  int mn = 0;
+  int mx = 0;
+  find(tp, n, mn, mx);
+  int fr = countfr(tp, n);
+
+  std::cout << std::fixed << std::setprecision(1) << avg << '\n';
+  std::cout << mn << ' ' << mx << '\n';
+  std::cout << fr << '\n';
+
+  delete[] tp;
+  return 0;
+}
